@@ -228,12 +228,12 @@
 <h4 id="2-设置加入网络"><a href="#2-设置加入网络" class="headerlink" title="2. 设置加入网络"></a>2. 设置加入网络</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo zerotier-cli join 网络id</span><br></pre></td></tr></table></figure>
 
 <h2 id="zerotier官网设置-配置旁路由"><a href="#zerotier官网设置-配置旁路由" class="headerlink" title="zerotier官网设置(配置旁路由)"></a>zerotier官网设置(配置旁路由)</h2><h4 id="1-允许加入网络"><a href="#1-允许加入网络" class="headerlink" title="1. 允许加入网络"></a>1. 允许加入网络</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS: 设置一个与常用网络不一样的子域</span><br></pre></td></tr></table></figure>
-<p><img src="/image.png" alt="设置ipv4"></p>
+<p><img src="https://github.com/alextend/blog-images/raw/main/zerotier-bypass/set-ipv4-auto-assign.png" alt="设置ipv4"></p>
 <h4 id="2-设置内网跳板机"><a href="#2-设置内网跳板机" class="headerlink" title="2. 设置内网跳板机"></a>2. 设置内网跳板机</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Destination填本地内网ip地址，Via填跳板机在zerotier分配的ip(最好设置固定ip)</span><br></pre></td></tr></table></figure>
-<p><img src="/image-1.png" alt="alt text"></p>
+<p><img src="https://github.com/alextend/blog-images/raw/main/zerotier-bypass/set-bypass-route.png" alt="开启跳板机转发路由"></p>
 <h2 id="本地设置-跳板机网络"><a href="#本地设置-跳板机网络" class="headerlink" title="本地设置(跳板机网络)"></a>本地设置(跳板机网络)</h2><h4 id="1-启用内核的ip转发功能"><a href="#1-启用内核的ip转发功能" class="headerlink" title="1. 启用内核的ip转发功能"></a>1. 启用内核的ip转发功能</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysctl.conf</span><br></pre></td></tr></table></figure>
 <p>如有需要，也可以开启ipv6转发</p>
-<p><img src="/image-2.png" alt="alt text"></p>
+<p><img src="https://github.com/alextend/blog-images/raw/main/zerotier-bypass/set-ipv4-ip_forward.png" alt="开启转发"></p>
 <p>保存后，输入以下命令重载配置：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -p /etc/sysctl.conf</span><br></pre></td></tr></table></figure>
 
