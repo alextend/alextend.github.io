@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Alextend">
+
+
+
+
+
+<title>almalinux-safety | Alex extend Thinking~~~</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Alex extend Thinking</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/contact">Contact</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Alex extend Thinking</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/contact">Contact</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">almalinux-safety</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Alextend</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">September 21, 2025&nbsp;&nbsp;15:03:11</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>关于 Almalinux 安全加固的若干建议<br>本帮助手册旨在指导系统管理人员或安全检查人员进行 Linux 操作系统的安全合规性检查和加固。</p>
+<ol>
+<li>定期更新系统和软件包<br>定期更新操作系统和软件包可以保持系统最新，以修复已知的安全漏洞和弱点。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dnf update</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>禁用或删除无用账号<br>减少系统无用账号，降低安全风险。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">使用命令 userdel &lt;用户名&gt; 删除不必要的账号。</span><br><span class="line">使用命令 passwd -l &lt;用户名&gt; 锁定不必要的账号。</span><br><span class="line">使用命令 passwd -u &lt;用户名&gt; 解锁必要的账号。</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>检查特殊账号<br>检查是否存在空口令和 root 权限的账号。</li>
+</ol>
+<p>查看空口令和 root 权限账号，确认是否存在异常账号：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">使用命令 awk -F: ‘($2==””)’ /etc/shadow 查看空口令账号。</span><br><span class="line">使用命令 awk -F: ‘($3==0)’ /etc/passwd 查看 UID 为零的账号。</span><br></pre></td></tr></table></figure>
+
+<p>加固空口令账号：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用命令 passwd &lt;用户名&gt; 为空口令账号设定密码。</span><br></pre></td></tr></table></figure>
+
+<p>确认 UID 为零的账号只有 root 账号。</p>
+<ol start="4">
+<li>配置强密码策略<br>加强口令的复杂度等，降低被猜解的可能性。</li>
+</ol>
+<p>使用命令 vi &#x2F;etc&#x2F;login.defs 修改配置文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PASS_MAX_DAYS 90 #新建用户的密码最长使用天数</span><br><span class="line">PASS_MIN_DAYS 0 #新建用户的密码最短使用天数</span><br><span class="line">PASS_WARN_AGE 7 #新建用户的密码到期提前提醒天数</span><br><span class="line">PASS_MIN_LEN  8 #密码长度</span><br></pre></td></tr></table></figure>
+
+<p>使用 chage 命令修改用户设置。</p>
+<p>例如，chage -m 0 -M 30 -E 2000-01-01 -W 7 &lt;用户名&gt;表示将此用户的密码最长使用天数设为 30，最短使用天数设为 0，密码 2000 年 1 月 1 日过期，过期前七天警告用户。</p>
+<p>设置连续输错三次密码，账号锁定五分钟。使用命令 vi &#x2F;etc&#x2F;pam.d&#x2F;common-auth 修改配置文件，在配置文件中添加 auth required pam_tally.so onerr&#x3D;fail deny&#x3D;3 unlock_time&#x3D;300。</p>
+<ol start="5">
+<li>限制用户 su<br>限制能 su 到 root 的用户。</li>
+</ol>
+<p>使用命令 vi &#x2F;etc&#x2F;pam.d&#x2F;su 修改配置文件，在配置文件中添加行。例如，只允许 test 组用户 su 到 root。<br>vi &#x2F;etc&#x2F;pam.d&#x2F;su, 添加如下配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_wheel.so group=wheel</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>安装并启用防火墙<br>切记： 开端端口前，请确保 ssh 监听在 22 端口，如果不是在 ssh 默认的端口，一旦防火墙开启，ssh 服务就连接不上，就好导致登陆不上 vps.</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 检查防火墙是否开启</span><br><span class="line">sudo firewall-cmd --state</span><br><span class="line"></span><br><span class="line"># 开启防火墙</span><br><span class="line">sudo systemctl start firewalld</span><br><span class="line"># 设置为开机启动</span><br><span class="line">sudo systemctl enable firewalld</span><br><span class="line"></span><br><span class="line"># 显示默认区域的所有规则</span><br><span class="line">sudo firewall-cmd --list-all</span><br><span class="line"></span><br><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>禁止 root 用户直接登录<br>禁用 root 用户之前先创建可以登陆的普通用户</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 创建用户组</span><br><span class="line">sudo groupadd &lt;usergroup&gt;</span><br><span class="line"># 创建普通用户, replace normal with actual username</span><br><span class="line">sudo useradd --comment &#x27;Normal User&#x27; --gid &lt;usergroup&gt; --create-home &lt;username&gt; --shell /bin/bash</span><br><span class="line"></span><br><span class="line"># 为新用户设置密码</span><br><span class="line">passwd &lt;username&gt;</span><br><span class="line"></span><br><span class="line"># 测试新用户是否能够远程登陆</span><br><span class="line">ssh username@ip</span><br><span class="line"></span><br><span class="line">#将用户添加到wheel用户组使用户拥有sudo 权限</span><br><span class="line">usermod -a -G wheel &lt;username&gt;</span><br><span class="line"></span><br><span class="line"># 设置user的sudo权限</span><br><span class="line"># 注释掉需要密码那个，开启不带密码那个</span><br><span class="line">visudo</span><br><span class="line"></span><br><span class="line"># 使用密钥验证</span><br><span class="line"># ssh-copy-id  username@ip</span><br></pre></td></tr></table></figure>
+
+<p>限制 root 用户直接登录。</p>
+<p>创建普通权限账号并配置密码,防止无法远程登录;</p>
+<p>sudo vi &#x2F;etc&#x2F;ssh&#x2F;sshd_config</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 禁止root用户登陆</span><br><span class="line">PermitRootLogin no</span><br></pre></td></tr></table></figure>
+
+<p>重启 sshd 服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart sshd</span><br></pre></td></tr></table></figure>
+
+<p>查看配置是否生效</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sshd -T | grep -i PermitRootLogin</span><br><span class="line">permitrootlogin no</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意： 有时候 sshd 的配置文件位于 &#x2F;etc&#x2F;ssh&#x2F;sshd_config.d，而且优先级较高，所以两个位置都需要检查</li>
+</ul>
+<ol start="8">
+<li>更改 ssh 端口<br>vim &#x2F;etc&#x2F;ssh&#x2F;sshd_config ，更改 Port 或追加 Port</li>
+</ol>
+<ul>
+<li>注：重启 sshd 服务使配置生效。</li>
+</ul>
+<ol start="9">
+<li>强制 SSH 使用密钥认证禁止密码登录<br>修改如下文件</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line">#禁用密码验证</span><br><span class="line">PasswordAuthentication no</span><br><span class="line">#启用密钥验证</span><br><span class="line">PubkeyAuthentication yes</span><br></pre></td></tr></table></figure>
+
+<p>重启服务生效</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart sshd</span><br></pre></td></tr></table></figure>
+<p>查看是否生效</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sshd -T | grep -i PasswordAuthentication</span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>关闭不必要的服务<br>关闭不必要的服务（如普通服务和 xinetd 服务），降低风险。</li>
+</ol>
+<p>操作步骤<br>使用命令 systemctl disable &lt;服务名&gt;设置服务在开机时不自动启动。</p>
+<ol start="11">
+<li>设置 umask 值<br>设置 umask 值</li>
+</ol>
+<p>设置默认的 umask 值，增强安全性。</p>
+<p>操作步骤<br>使用命令 vi &#x2F;etc&#x2F;profile 修改配置文件，添加行 umask 027， 即新创建的文件属主拥有读写执行权限，同组用户拥有读和执行权限，其他用户无权限。</p>
+<ol start="12">
+<li>设置登录超时<br>设置系统登录后，连接超时时间，增强安全性。</li>
+</ol>
+<p>操作步骤<br>使用命令 vi &#x2F;etc&#x2F;profile 修改配置文件，将以 TMOUT&#x3D; 开头的行注释，设置为 TMOUT&#x3D;180，即超时时间为三分钟。</p>
+<ol start="13">
+<li>日志<br>启用日志功能，并配置日志记录。</li>
+</ol>
+<p>操作步骤</p>
+<p>Linux 系统默认启用以下类型日志：<br>系统日志（默认）&#x2F;var&#x2F;log&#x2F;messages<br>cron 日志（默认）&#x2F;var&#x2F;log&#x2F;cron<br>安全日志（默认）&#x2F;var&#x2F;log&#x2F;secure<br>注意：部分系统可能使用 syslog-ng 日志，配置文件为：&#x2F;etc&#x2F;syslog-ng&#x2F;syslog-ng.conf。</p>
+<p>您可以根据需求配置详细日志。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Alextend</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://alextend.com/2025/09/21/almalinux-safety/">http://alextend.com/2025/09/21/almalinux-safety/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2025/02/19/zerotier-bypass/">zerotier-bypass</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Alextend | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
