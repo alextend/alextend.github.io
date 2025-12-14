@@ -264,6 +264,13 @@
     .summary-container .merged-table th, .summary-container .merged-table td {
         text-align: center;
     }
+    /* 统计表格中，将名称列左对齐 */
+    .summary-container .merged-table th:first-child,
+    .summary-container .merged-table td:first-child,
+    .summary-container .merged-table th:nth-child(4),
+    .summary-container .merged-table td:nth-child(4) {
+        text-align: left;
+    }
     /* 为统计表格增加间隔变色 */
     .summary-container .merged-table tbody .rare-section,
     .summary-container .merged-table tbody .uncommon-section {
