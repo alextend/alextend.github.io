@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Alextend">
+
+
+
+
+
+<title>原生体合成统计工具 | Alex extend Thinking~~~</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Alex extend Thinking</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/protoform-synthesis/">ProtoformSynthesis</a>
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/contact">Contact</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Alex extend Thinking</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/protoform-synthesis/">ProtoformSynthesis</a>
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/contact">Contact</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    <article class="post-wrap page">
+        
+        <h2 class="post-title">原生体合成统计工具</h2>
+        
+        <section class="post-content">
+            <style>
+    /* 使用 Flexbox 实现响应式布局 */
+    .proto-page-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2em; /* 列间距 */
+    }
+    .proto-column {
+        flex: 1; /* 两列平分宽度 */
+        min-width: 450px; /* 最小宽度，防止过度挤压 */
+    }
+    .proto-column h2 {
+        margin-bottom: 0.5em; /* 减小标题和表格之间的间距 */
+    }
+    .quick-actions {
+        display: flex;
+        gap: 0.5em;
+        margin-bottom: 1em;
+    }
+    .quick-action-btn {
+        padding: 0.2em 0.6em;
+        font-size: 0.8em;
+        border: 1px solid #ccc;
+        background-color: #f0f0f0;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    .quick-action-btn:hover {
+        background-color: #e0e0e0;
+    }
+    .quick-action-btn.reset-btn {
+        border-color: #c0392b;
+        background-color: #e74c3c;
+        color: white;
+    }
+    .quick-action-btn.reset-btn:hover {
+        background-color: #c0392b;
+    }
+    /* 在窄屏幕上，布局变为垂直堆叠 */
+    @media (max-width: 992px) {
+        .proto-page-container {
+            flex-direction: column;
+        }
+    }
+    .table-container {
+        overflow: hidden;
+        overflow-x: auto; /* 当表格过宽时，允许水平滚动 */
+    }
+    .table-container .list-table {
+        width: 100%;
+        border-collapse: collapse; /* 确保边框合并，样式更统一 */
+    }
+
+    /* 为坐骑和宠物列表的名称列设置背景色 */
+    #mounts-table td:first-child {
+        background-color: #7030A0;
+        color: white; /* 确保文字在深色背景下可读 */
+    }
+    #pets-table td:first-child {
+        background-color: #2F75B5;
+        color: white; /* 确保文字在深色背景下可读 */
+    }
+    /* 让图纸和制作的select铺满单元格 */
+    .list-table .blueprint-select, .list-table .crafted-select {
+        padding: 0; /* 移除单元格的内边距 */
+    }
+    .list-table select {
+        width: 100%;
+        height: 100%; /* 确保高度铺满 */
+        border: none; /* 移除select的边框，使其与单元格融为一体 */
+        text-align: center;
+        -webkit-appearance: none; /* 移除在某些浏览器上的默认样式 */
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    /* WoW 风格物品质量颜色 */
+    .item-quality-rare {
+        color: #0070dd; /* 稀有 - 蓝色 */
+        font-weight: bold; /* 蓝色通常更显眼一些 */
+    }
+
+    /* 统计区域样式 */
+    .summary-container {
+        margin-top: 2em;
+        padding: 1.5em;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+        max-width: 1200px; /* 设置最大宽度 */
+        margin-left: auto; /* 自动外边距实现居中 */
+        margin-right: auto; /* 自动外边距实现居中 */
+    }
+    .summary-container h3 {
+        margin-top: 0;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 0.5em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .summary-container input[type="number"] {
+        width: 60px; /* 缩短所有已收集输入框的宽度 */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 4px;
+    }
+    #genesis-motes-summary {
+        font-size: 1.2em;
+        /* font-weight: bold; */ /* 移除加粗 */
+        text-align: left; /* 改为左对齐 */
+        margin: 1em 0;
+        padding: 0.5em;
+        background-color: #e9ecef;
+        border-radius: 4px;
+    }
+    .summary-container .merged-table .rare-section {
+        background-color: #eef7ff; /* 淡蓝色背景 */
+    }
+    .summary-container .merged-table .uncommon-section {
+        background-color: #f1f8e9; /* 淡绿色背景 */
+    }
+    .summary-container .merged-table th, .summary-container .merged-table td {
+        text-align: center;
+    }
+    /* 为统计表格增加间隔变色 */
+    .summary-container .merged-table tbody .rare-section,
+    .summary-container .merged-table tbody .uncommon-section {
+        background-color: #f9f9f9; /* 奇数行使用非常浅的灰色 */
+    }
+    .summary-container .merged-table tbody tr:nth-child(even) .rare-section,
+    .summary-container .merged-table tbody tr:nth-child(even) .uncommon-section {
+        background-color: #eeeeee; /* 偶数行使用稍深的灰色，形成清晰条纹 */
+    }
+    .summary-container .merged-table thead th {
+        color: white; /* 将表头文字改为白色以保证对比度 */
+    }
+    .summary-container .merged-table thead .rare-section {
+        background-color: #274f77ff; /* 稀有 - 蓝色 */
+    }
+    .summary-container .merged-table thead .uncommon-section {
+        background-color: #1a3e15ff; /* 精良 - 绿色 */
+    }
+
+    /* 为统计表格中间增加黑色分隔线 */
+    .summary-container .merged-table th:nth-child(3),
+    .summary-container .merged-table td:nth-child(3) {
+        border-right: 1px solid #333;
+    }
+    /* 为统计表格增加粗外边框和表头下边框 */
+    .summary-container .merged-table {
+        border: 1px solid #333;
+    }
+    .summary-container .merged-table thead tr:last-child th {
+        border-bottom: 1px solid #333;
+    }
+
+    /* 自定义 Tooltip 样式 */
+    .tooltip-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 999;
+        display: none;
+    }
+    .custom-tooltip {
+        position: fixed;
+        display: none;
+        background-color: #333;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 6px;
+        z-index: 1000;
+        max-width: 450px;
+        font-size: 0.9em;
+        line-height: 1.5;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        /* 居中关键样式 */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .has-tooltip {
+        cursor: pointer;
+        border-bottom: 1px dotted;
+    }
+    .tooltip-overlay.visible,
+    .custom-tooltip.visible {
+        display: block;
+    }
+
+    /* 筛选器样式 */
+    .filter-container {
+        margin-bottom: 2em;
+        padding: 1em;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+        display: flex;
+        gap: 1.5em;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .filter-group {
+        display: flex;
+        gap: 1em;
+        align-items: center;
+    }
+    .filter-group strong {
+        font-weight: bold;
+    }
+    .filter-container label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.25em;
+    }
+
+    /* 筛选器样式 */
+    .filter-container {
+        margin-bottom: 2em;
+        padding: 1em;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+        display: flex;
+        gap: 1.5em;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .filter-group {
+        display: flex;
+        gap: 1em;
+        align-items: center;
+    }
+    .filter-group strong {
+        font-weight: bold;
+    }
+    .filter-container label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.25em;
+    }
+</style>
+
+<div class="filter-container">
+    <div class="filter-group">
+        <strong>图纸:</strong>
+        <label><input type="radio" name="blueprint-filter" value="all" checked> 全部</label>
+        <label><input type="radio" name="blueprint-filter" value="collected"> 已收集</label>
+        <label><input type="radio" name="blueprint-filter" value="not-collected"> 未收集</label>
+    </div>
+    <div class="filter-group">
+        <strong>制作:</strong>
+        <label><input type="radio" name="crafted-filter" value="all" checked> 全部</label>
+        <label><input type="radio" name="crafted-filter" value="crafted"> 已制作</label>
+        <label><input type="radio" name="crafted-filter" value="not-crafted"> 未制作</label>
+    </div>
+</div>
+
+<div class="proto-page-container">
+    <div class="proto-column">
+        <h2>坐骑列表</h2>
+        <div class="quick-actions">
+            <button id="collect-all-mounts-btn" class="quick-action-btn">已收集所有图纸</button>
+            <button id="craft-all-mounts-btn" class="quick-action-btn">已制作所有坐骑</button>
+            <button id="reset-mounts-btn" class="quick-action-btn reset-btn">重置状态</button>
+        </div>
+        <div class="table-container">
+            <table id="mounts-table" class="list-table">
+                <!-- 表格内容由JS生成 -->
+            </table>
+        </div>
+    </div>
+    <div class="proto-column">
+        <h2>宠物列表</h2>
+        <div class="quick-actions">
+            <button id="collect-all-pets-btn" class="quick-action-btn">已收集所有图纸</button>
+            <button id="craft-all-pets-btn" class="quick-action-btn">已制作所有宠物</button>
+            <button id="reset-pets-btn" class="quick-action-btn reset-btn">重置状态</button>
+        </div>
+        <div class="table-container">
+            <table id="pets-table" class="list-table">
+                <!-- 表格内容由JS生成 -->
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="summary-container">
+    <h3>未制作物品材料统计<button id="reset-summary-btn" class="quick-action-btn reset-btn">重置已收集数量</button></h3>
+    <div id="genesis-motes-summary"></div>
+    <div id="merged-materials-details" class="table-container"></div>
+</div>
+
+<div id="tooltip-overlay" class="tooltip-overlay"></div>
+<div id="custom-tooltip" class="custom-tooltip"></div>
+</div>
+
+<script>
+    // 将脚本包装在IIFE中以避免污染全局作用域
+    (function() {
+        const STATUS_STORAGE_KEY = 'protoformSynthesisStatus';
+        const OWNED_MATERIALS_STORAGE_KEY = 'protoformOwnedMaterials';
+        const FILTER_STORAGE_KEY = 'protoformFilterStatus';
+
+        // 将数据变量定义在顶层作用域
+        let allData = [];
+        let acquisitionMethods = {};
+        let materialAcquisitionMethods = {};
+        let mountsData = [];
+        let petsData = [];
+        // --- Local Storage 辅助函数 ---
+        function setItem(name, value) {
+            localStorage.setItem(name, JSON.stringify(value));
+        }
+
+        function getItem(name) {
+            const item = localStorage.getItem(name);
+            if (item) {
+                try {
+                    return JSON.parse(item);
+                } catch (e) { return null; }
+            }
+            return null;
+        }
+
+        function deleteItem(name) {
+            localStorage.removeItem(name);
+        }
+
+        function createSelectCell(options, selectedValue, row) {
+            const cell = document.createElement('td');
+            const select = document.createElement('select');
+            
+            options.forEach(optionText => {
+                const option = document.createElement('option');
+                option.value = optionText;
+                option.textContent = optionText;
+                if (optionText === selectedValue) {
+                    option.selected = true;
+                }
+                select.appendChild(option);
+            });
+            cell.appendChild(select);
+            return cell;
+        }
+
+        function populateTable(table, data, savedStatus, acquisitionMethods, materialAcquisitionMethods) {
+            if (!table) return;
+            const tableBody = table.createTBody();
+            data.forEach(item => {
+                const row = tableBody.insertRow();
+                const currentStatus = savedStatus[item.name] || { blueprint: '未收集', crafted: '未制作' };
+
+                const nameCell = row.insertCell();
+                const nameSpan = document.createElement('span');
+                nameSpan.textContent = item.name;
+                // 添加 tooltip
+                const tooltipContent = acquisitionMethods[item.name];
+                if (tooltipContent) {
+                    nameSpan.classList.add('has-tooltip');
+                    nameSpan.dataset.tooltip = tooltipContent;
+                }
+                nameCell.appendChild(nameSpan);
+
+                const blueprintCell = createSelectCell(['未收集', '已收集'], currentStatus.blueprint);
+                blueprintCell.className = 'blueprint-select'; // 添加 class
+                row.appendChild(blueprintCell)
+
+                const craftedCell = createSelectCell(['未制作', '已制作'], currentStatus.crafted);
+                craftedCell.className = 'crafted-select'; // 添加 class
+                row.appendChild(craftedCell);
+
+                const motesCell = row.insertCell();
+                motesCell.textContent = item.motes;
+                
+                const materialCell = row.insertCell();
+                // 应用蓝色样式
+                const materialSpan = document.createElement('span');
+                materialSpan.className = 'item-quality-rare';
+                materialSpan.textContent = item.material;
+                const materialTooltipContent = materialAcquisitionMethods[item.material];
+                if (materialTooltipContent) {
+                    materialSpan.classList.add('has-tooltip');
+                    materialSpan.dataset.tooltip = materialTooltipContent;
+                }
+                materialCell.appendChild(materialSpan);
+
+                const latticeCell = row.insertCell();
+                // 应用绿色样式
+                const latticeSpan = document.createElement('span');
+                latticeSpan.className = 'item-quality-uncommon';
+                latticeSpan.textContent = item.lattice;
+                latticeCell.appendChild(latticeSpan);
+
+                const blueprintSelect = blueprintCell.querySelector('select');
+                const craftedSelect = craftedCell.querySelector('select');
+
+                function updateRowState() {
+                    const isNotCollected = blueprintSelect.value === '未收集';
+                    const isNotCrafted = craftedSelect.value === '未制作';
+
+                    // 根据选择的值动态设置单元格和下拉框的背景色
+                    const blueprintColor = isNotCollected ? '#F4B084' : '#A9D08E';
+                    blueprintCell.style.backgroundColor = blueprintColor;
+                    blueprintSelect.style.backgroundColor = blueprintColor;
+
+                    const craftedColor = isNotCrafted ? '#F4B084' : '#A9D08E';
+                    craftedCell.style.backgroundColor = craftedColor;
+                    craftedSelect.style.backgroundColor = craftedColor;
+
+                    if (isNotCollected) {
+                        craftedSelect.value = '未制作';
+                        craftedSelect.disabled = true;
+                    } else {
+                        craftedSelect.disabled = false;
+                    }
+
+                    const allStatus = getItem(STATUS_STORAGE_KEY) || {};
+                    allStatus[item.name] = { blueprint: blueprintSelect.value, crafted: craftedSelect.value };
+                    setItem(STATUS_STORAGE_KEY, allStatus);
+                    applyFilters(); // 状态改变后，重新应用筛选
+                }
+
+                blueprintSelect.addEventListener('change', updateRowState);
+                craftedSelect.addEventListener('change', updateRowState);
+                
+                // Also trigger summary update when crafted status changes
+                craftedSelect.addEventListener('change', updateSummary);
+                updateRowState();
+            });
+        }
+
+        // 保存筛选状态
+        function saveFilterState() {
+            const blueprintFilter = document.querySelector('input[name="blueprint-filter"]:checked').value;
+            const craftedFilter = document.querySelector('input[name="crafted-filter"]:checked').value;
+            const filterStatus = { blueprint: blueprintFilter, crafted: craftedFilter };
+            setItem(FILTER_STORAGE_KEY, filterStatus);
+        }
+
+        // 筛选功能
+        function applyFilters() {
+            const blueprintFilter = document.querySelector('input[name="blueprint-filter"]:checked').value;
+            const craftedFilter = document.querySelector('input[name="crafted-filter"]:checked').value;
+
+            const rows = document.querySelectorAll('#mounts-table tbody tr, #pets-table tbody tr');
+
+            rows.forEach(row => {
+                const blueprintSelect = row.querySelector('.blueprint-select select');
+                const craftedSelect = row.querySelector('.crafted-select select');
+
+                const blueprintMatch = (blueprintFilter === 'all') || (blueprintFilter === 'collected' && blueprintSelect.value === '已收集') || (blueprintFilter === 'not-collected' && blueprintSelect.value === '未收集');
+                const craftedMatch = (craftedFilter === 'all') || (craftedFilter === 'crafted' && craftedSelect.value === '已制作') || (craftedFilter === 'not-crafted' && craftedSelect.value === '未制作');
+
+                if (blueprintMatch && craftedMatch) {
+                    row.style.display = ''; // 显示行
+                } else {
+                    row.style.display = 'none'; // 隐藏行
+                }
+            });
+
+            // 检查并隐藏空的表格
+            const checkAndHideEmptyTables = () => {
+                const mountsTable = document.getElementById('mounts-table');
+                const petsTable = document.getElementById('pets-table');
+
+                // 检查每个表格是否有可见的行
+                const mountsVisible = mountsTable.querySelector('tbody tr:not([style*="display: none"])');
+                const petsVisible = petsTable.querySelector('tbody tr:not([style*="display: none"])');
+
+                // 根据结果显示或隐藏对应的列
+                mountsTable.closest('.proto-column .table-container').style.display = mountsVisible ? '' : 'none';
+                petsTable.closest('.proto-column .table-container').style.display = petsVisible ? '' : 'none';
+            };
+
+            checkAndHideEmptyTables();
+        }
+
+        // 筛选器联动逻辑
+        function handleFilterInteraction() {
+            const blueprintFilterRadios = document.querySelectorAll('input[name="blueprint-filter"]');
+            const craftedFilterRadios = document.querySelectorAll('input[name="crafted-filter"]'); // 所有制作状态单选框
+            const craftedFilterAll = document.querySelector('input[name="crafted-filter"][value="all"]');
+            const craftedFilterCrafted = document.querySelector('input[name="crafted-filter"][value="crafted"]');
+            const craftedFilterNotCrafted = document.querySelector('input[name="crafted-filter"][value="not-crafted"]');
+
+            blueprintFilterRadios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    if (radio.value === 'not-collected') {
+                        // 如果选择筛选“未收集”，则强制制作筛选为“未制作”并禁用其他选项
+                        craftedFilterNotCrafted.checked = true; // 强制选择“未制作”
+                        craftedFilterAll.disabled = true;       // 禁用“全部”
+                        craftedFilterCrafted.disabled = true;   // 禁用“已制作”
+                        craftedFilterNotCrafted.disabled = false; // 确保“未制作”可用
+                    } else {
+                        // 否则，启用所有制作筛选选项
+                        craftedFilterAll.disabled = false;
+                        craftedFilterCrafted.disabled = false;
+                        craftedFilterNotCrafted.disabled = false;
+                        //A9D08E
+                        //F4B084
+                    }
+                    saveFilterState(); // 保存状态
+                    applyFilters();
+                });
+            });
+        }
+
+        function updateSummary() {
+            const requiredMaterials = { '源生微粒': 0 };
+            const allStatus = getItem(STATUS_STORAGE_KEY) || {};
+            
+            allData.forEach(item => {
+                const status = allStatus[item.name] || { crafted: '未制作' };
+                if (status.crafted === '未制作') {
+                    requiredMaterials['源生微粒'] += item.motes;
+                    requiredMaterials[item.material] = (requiredMaterials[item.material] || 0) + 1;
+                    requiredMaterials[item.lattice] = (requiredMaterials[item.lattice] || 0) + 1;
+                }
+            });
+
+            const ownedMaterials = getItem(OWNED_MATERIALS_STORAGE_KEY) || {};
+
+            // 1. 处理源生微粒
+            const motesNeeded = requiredMaterials['源生微粒'] || 0;
+            const motesOwned = ownedMaterials['源生微粒'] || 0;
+            const motesSummaryEl = document.getElementById('genesis-motes-summary');
+            if (motesNeeded > 0) {
+                motesSummaryEl.innerHTML = `源生微粒: 已收集 <input type="number" id="motes-owned-input" min="0" value="${motesOwned}"> | <span id="motes-needed">还需 ${Math.max(0, motesNeeded - motesOwned)}</span>`;
+                const motesInput = document.getElementById('motes-owned-input');
+                motesInput.addEventListener('input', () => {
+                    const owned = parseInt(motesInput.value, 10) || 0;
+                    document.getElementById('motes-needed').textContent = `还需 ${Math.max(0, motesNeeded - owned)}`;
+                    ownedMaterials['源生微粒'] = owned;
+                    setItem(OWNED_MATERIALS_STORAGE_KEY, ownedMaterials);
+                });
+            } else {
+                motesSummaryEl.innerHTML = '';
+            }
+
+            // 2. 分离材料
+            const rareMaterials = {};
+            const uncommonMaterials = {};
+            for (const name in requiredMaterials) {
+                if (name === '源生微粒') continue;
+                if (name.includes('晶格')) { // 晶格
+                    uncommonMaterials[name] = requiredMaterials[name];
+                } else { // 蓝色材料
+                    rareMaterials[name] = requiredMaterials[name];
+                }
+            }
+
+            // 3. 渲染合并的表格
+            const mergedContainer = document.getElementById('merged-materials-details');
+            mergedContainer.innerHTML = '';
+            const sortedRare = Object.entries(rareMaterials).sort((a, b) => b[1] - a[1]);
+            const sortedUncommon = Object.entries(uncommonMaterials).sort((a, b) => b[1] - a[1]);
+
+            if (sortedRare.length > 0 || sortedUncommon.length > 0) {
+                const table = document.createElement('table');
+                table.className = 'list-table merged-table';
+                const header = table.createTHead();
+                header.insertRow().innerHTML = `<th colspan="3" class="rare-section">蓝色材料</th><th colspan="3" class="uncommon-section">晶格</th>`;
+                header.insertRow().innerHTML = `<th class="rare-section">名称</th><th class="rare-section">已收集</th><th class="rare-section">还需</th><th class="uncommon-section">名称</th><th class="uncommon-section">已收集</th><th class="uncommon-section">还需</th>`;
+
+                const tbody = table.createTBody();
+                const maxRows = Math.max(sortedRare.length, sortedUncommon.length);
+
+                for (let i = 0; i < maxRows; i++) {
+                    const row = tbody.insertRow();
+                    const rareItem = sortedRare[i];
+                    const uncommonItem = sortedUncommon[i];
+
+                    // 辅助函数，用于填充单元格
+                    const fillCells = (item, qualityClass, sectionClass) => {
+                        if (item) {
+                            const [name, qty] = item;
+                            const nameCell = row.insertCell();
+                            const nameSpan = document.createElement('span');
+                            nameSpan.className = qualityClass;
+                            nameSpan.textContent = name;
+                            // Add tooltip to summary table item names
+                            const tooltipContent = materialAcquisitionMethods[name] || acquisitionMethods[name];
+                            if (tooltipContent) {
+                                nameSpan.classList.add('has-tooltip');
+                                nameSpan.dataset.tooltip = tooltipContent;
+                            }
+                            nameCell.appendChild(nameSpan);
+                            nameCell.className = sectionClass;
+
+                            const ownedCell = row.insertCell();
+                            ownedCell.className = sectionClass;
+                            const input = document.createElement('input');
+                            input.type = 'number';
+                            input.min = 0;
+                            input.value = ownedMaterials[name] || 0;
+                            ownedCell.appendChild(input);
+
+                            const neededCell = row.insertCell();
+                            neededCell.className = sectionClass;
+                            const updateNeeded = () => {
+                                const owned = parseInt(input.value, 10) || 0;
+                                neededCell.textContent = Math.max(0, qty - owned);
+                                ownedMaterials[name] = owned;
+                                setItem(OWNED_MATERIALS_STORAGE_KEY, ownedMaterials);
+                            };
+                            input.addEventListener('input', updateNeeded);
+                            updateNeeded();
+                        } else {
+                            const emptyCell = row.insertCell();
+                            emptyCell.colSpan = 3;
+                            emptyCell.className = sectionClass;
+                        }
+                    };
+
+                    fillCells(rareItem, 'item-quality-rare', 'rare-section');
+                    fillCells(uncommonItem, 'item-quality-uncommon', 'uncommon-section');
+                }
+                mergedContainer.appendChild(table);
+            } else {
+                mergedContainer.textContent = '所有物品均已制作！';
+            }
+        }
+
+        async function main() {
+            try {
+                const response = await fetch('./protoform-synthesis-data.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                // 正确地为顶层变量赋值
+                mountsData = data.mountsData;
+                petsData = data.petsData;
+                acquisitionMethods = data.acquisitionMethods;
+                materialAcquisitionMethods = data.materialAcquisitionMethods;
+                allData = [...mountsData, ...petsData];
+
+                const savedStatus = getItem(STATUS_STORAGE_KEY) || {};
+                const mountsTable = document.getElementById('mounts-table');
+                const petsTable = document.getElementById('pets-table');
+
+                const headerContent = `<thead><tr><th>名称</th><th>图纸</th><th>制作</th><th>源生微粒</th><th>蓝色材料</th><th>晶格</th></tr></thead>`;
+                mountsTable.innerHTML = headerContent;
+                petsTable.innerHTML = headerContent;
+
+                populateTable(mountsTable, mountsData, savedStatus, acquisitionMethods, materialAcquisitionMethods);
+                populateTable(petsTable, petsData, savedStatus, acquisitionMethods, materialAcquisitionMethods);
+                updateSummary();
+
+                // 加载并应用筛选器状态
+                const savedFilters = getItem(FILTER_STORAGE_KEY);
+                if (savedFilters) {
+                    const blueprintRadio = document.querySelector(`input[name="blueprint-filter"][value="${savedFilters.blueprint}"]`);
+                    if (blueprintRadio) blueprintRadio.checked = true;
+                    const craftedRadio = document.querySelector(`input[name="crafted-filter"][value="${savedFilters.crafted}"]`);
+                    if (craftedRadio) craftedRadio.checked = true;
+                }
+
+                // 页面加载时，根据已保存的图纸筛选状态，初始化制作筛选器的禁用状态
+                const initialBlueprintFilter = document.querySelector('input[name="blueprint-filter"]:checked').value;
+                const craftedFilterAll = document.querySelector('input[name="crafted-filter"][value="all"]');
+                const craftedFilterCrafted = document.querySelector('input[name="crafted-filter"][value="crafted"]');
+                const craftedFilterNotCrafted = document.querySelector('input[name="crafted-filter"][value="not-crafted"]');
+                if (initialBlueprintFilter === 'not-collected') {
+                    craftedFilterNotCrafted.checked = true;
+                    craftedFilterAll.disabled = true;
+                    craftedFilterCrafted.disabled = true;
+                    craftedFilterNotCrafted.disabled = false;
+                }
+
+                document.querySelectorAll('input[name="blueprint-filter"], input[name="crafted-filter"]').forEach(radio => {
+                    radio.addEventListener('change', () => {
+                        saveFilterState();
+                        applyFilters();
+                    });
+                });
+
+                handleFilterInteraction();
+                applyFilters();
+
+                // 一键操作功能
+                function setupQuickActions() {
+                    const handleAction = (items, actionType) => {
+                        const itemType = items === mountsData ? '坐骑' : '宠物';
+                        let confirmMessage = '';
+
+                        if (actionType === 'collect') {
+                            confirmMessage = `您确定要将所有${itemType}标记为"图纸已收集"吗？`;
+                        } else if (actionType === 'craft') {
+                            confirmMessage = `您确定要将所有${itemType}标记为"物品已制作"吗？`;
+                        } else if (actionType === 'reset') {
+                            confirmMessage = `您确定要重置所有${itemType}的状态吗？此操作无法撤销。`;
+                        }
+
+                        if (!window.confirm(confirmMessage)) {
+                            return;
+                        }
+
+                        const allStatus = getItem(STATUS_STORAGE_KEY) || {};
+                        items.forEach(item => {
+                            if (!allStatus[item.name]) {
+                                allStatus[item.name] = { blueprint: '未收集', crafted: '未制作' };
+                            }
+                            if (actionType === 'collect') {
+                                allStatus[item.name].blueprint = '已收集';
+                            } else if (actionType === 'craft') {
+                                allStatus[item.name].blueprint = '已收集'; // 制作前必须先收集图纸
+                                allStatus[item.name].crafted = '已制作';
+                            } else if (actionType === 'reset') {
+                                if (allStatus[item.name]) {
+                                    delete allStatus[item.name];
+                                }
+                            }
+                        });
+                        setItem(STATUS_STORAGE_KEY, allStatus);
+                        window.location.reload();
+                    };
+
+                    document.getElementById('collect-all-mounts-btn').addEventListener('click', () => handleAction(mountsData, 'collect'));
+                    document.getElementById('craft-all-mounts-btn').addEventListener('click', () => handleAction(mountsData, 'craft'));
+                    document.getElementById('collect-all-pets-btn').addEventListener('click', () => handleAction(petsData, 'collect'));
+                    document.getElementById('craft-all-pets-btn').addEventListener('click', () => handleAction(petsData, 'craft'));
+                    document.getElementById('reset-mounts-btn').addEventListener('click', () => handleAction(mountsData, 'reset'));
+                    document.getElementById('reset-pets-btn').addEventListener('click', () => handleAction(petsData, 'reset'));
+
+                    // 全局重置按钮（现在可以放在其他地方，或者作为隐藏功能）
+                    const globalResetButton = document.getElementById('reset-all-button');
+                    if (globalResetButton) {
+                        globalResetButton.addEventListener('click', function() {
+                            if (window.confirm('您确定要重置所有状态吗？此操作无法撤销。')) {
+                                deleteItem(STATUS_STORAGE_KEY);
+                                deleteItem(OWNED_MATERIALS_STORAGE_KEY);
+                                deleteItem(FILTER_STORAGE_KEY);
+                                window.location.reload();
+                            }
+                        });
+                    }
+                }
+
+                setupQuickActions();
+
+                // 统计区域重置按钮
+                const resetSummaryButton = document.getElementById('reset-summary-btn');
+                if (resetSummaryButton) {
+                    resetSummaryButton.addEventListener('click', function() {
+                        if (window.confirm('您确定要重置所有已收集的材料数量吗？')) {
+                            deleteItem(OWNED_MATERIALS_STORAGE_KEY);
+                            window.location.reload();
+                        }
+                    });
+                }
+
+                const tooltip = document.getElementById('custom-tooltip');
+                const overlay = document.getElementById('tooltip-overlay');
+                function showTooltip(content) { tooltip.innerHTML = content; overlay.classList.add('visible'); tooltip.classList.add('visible'); }
+                function hideTooltip() { overlay.classList.remove('visible'); tooltip.classList.remove('visible'); }
+                document.addEventListener('click', e => { if (e.target.classList.contains('has-tooltip')) showTooltip(e.target.dataset.tooltip); });
+                overlay.addEventListener('click', hideTooltip);
+
+            } catch (error) {
+                console.error("Could not load synthesis data:", error);
+                // Optionally, display an error message to the user on the page
+            }
+        }
+
+        // 确保在DOM完全加载后运行脚本
+        document.addEventListener('DOMContentLoaded', main);
+    })();
+</script>
+
+        </section>
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Alextend | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
